@@ -35,8 +35,8 @@ jobs:
       # not touch your dbt SQL. This is typically a ONE-TIME step you run
       # locally and commit (sqlmesh.yaml, config.py) rather than re-run on
       # every CI job. If those files are already committed, delete this step.
-      - name: sqlmesh init (dbt project)
-        run: sqlmesh init -t dbt
+      # - name: sqlmesh init (dbt project)
+      #   run: sqlmesh init -t dbt
 
       - name: Debug - verify profiles.yml location
         run: |
@@ -60,5 +60,5 @@ jobs:
           name: column-lineage
           path: column_lineage.json
 
-      - name: sqlmesh run
-        run: sqlmesh run
+      - name: sqlmesh plan
+        run: sqlmesh plan
