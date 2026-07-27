@@ -6,6 +6,9 @@ on:
   push:
     branches: [main]
 
+env:
+  DBT_PROFILES_DIR: ${{ github.workspace }}/profiles
+
 jobs:
   sqlmesh:
     runs-on: ubuntu-latest
@@ -37,19 +40,7 @@ jobs:
       # every CI job. If those files are already committed, delete this step.
       - name: sqlmesh init (dbt project)
         run: sqlmesh init -t dbt
-      - name: Create profiles.yml
-        run: |
-          mkdir -p profiles
-          cat > profiles/profiles.yml << EOF
-          POC_DBTCore:
-            target: dev
-            outputs:
-              dev:
-                type: duckdb
-                path: dev.duckdb
-                schema: main
-                threads: 1
-          EOF
+
       # plan.py should apply the SQLMesh plan (Context.plan(auto_apply=True))
       # BEFORE `sqlmesh run`, since `run` executes against an environment
       # that a plan must have already created. Confirm plan.py does this,
