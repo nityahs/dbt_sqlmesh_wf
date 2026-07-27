@@ -7,7 +7,12 @@ project_dir = Path(__file__).resolve().parent
 context = Context(paths=str(project_dir))
 
 column_lineage = {}
-
+dir = os.environ.get("DBT_PROFILES_DIR", profiles_dir or "")
+path = Path(project_root, dir, cls.PROFILE_FILE)
+if path.exists():
+    return path
+if dir:
+    return None   # <-- if DBT_PROFILES_DIR is set but file isn't there, it does NOT fall back anywhere else
 for name, model in context.models.items():
     model_cols = {}
     for column in model.columns_to_types or {}:
