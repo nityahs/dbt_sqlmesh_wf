@@ -1,0 +1,11 @@
+
+    
+    
+    truncate table "dev"."main"."seed_data";
+    -- dbt seed --
+    
+          COPY "dev"."main"."seed_data" FROM 'C:\Users\inknhs01\Downloads\POC_dbtCore\POC_DBTCore\seeds\seed_data.csv' (FORMAT CSV, HEADER TRUE, DELIMITER ',')
+        
+
+;
+  

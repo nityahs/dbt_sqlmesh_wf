@@ -1,0 +1,19 @@
+<div>
+  <div id="sqlglot-lineage"></div>
+  <script type="text/javascript" src="https://unpkg.com/vis-data@latest/peer/umd/vis-data.min.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/vis-network@latest/peer/umd/vis-network.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/vis-network/styles/vis-network.min.css" />
+  <script type="text/javascript">
+    var nodes = new vis.DataSet([{"id": "\"dev\".\"main\".\"full_model\"", "label": "\"full_model\"", "title": "<span>\"dev\".\"main\".\"full_model\"</span>"}, {"id": "\"dev\".\"main\".\"incremental_model\"", "label": "\"incremental_model\"", "title": "<span>\"dev\".\"main\".\"incremental_model\"</span>"}, {"id": "\"dev\".\"main\".\"seed_data\"", "label": "\"seed_data\"", "title": "<span>\"dev\".\"main\".\"seed_data\"</span>"}])
+    nodes.forEach(row => row["title"] = new DOMParser().parseFromString(row["title"], "text/html").body.childNodes[0])
+
+    new vis.Network(
+        document.getElementById("sqlglot-lineage"),
+        {
+            nodes: nodes,
+            edges: new vis.DataSet([{"from": "\"dev\".\"main\".\"incremental_model\"", "to": "\"dev\".\"main\".\"full_model\""}, {"from": "\"dev\".\"main\".\"seed_data\"", "to": "\"dev\".\"main\".\"incremental_model\""}])
+        },
+        {"height": "100%", "width": "100%", "layout": {"hierarchical": {"enabled": true, "nodeSpacing": 200, "sortMethod": "directed"}}, "interaction": {}, "physics": {"enabled": false}, "edges": {"arrows": "to"}, "nodes": {"shape": "box"}},
+    )
+  </script>
+</div>

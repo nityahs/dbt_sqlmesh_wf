@@ -1,0 +1,58 @@
+version: 2
+
+seeds:
+  - name: seed_data
+    description: "Seed data loaded from CSV."
+
+    columns:
+      - name: id
+        description: "Unique identifier."
+        tests:
+          - not_null
+
+      - name: item_id
+        description: "Item identifier."
+        tests:
+          - not_null
+
+      - name: event_date
+        description: "Event date."
+        tests:
+          - not_null
+
+models:
+  - name: incremental_model
+    description: "Incremental model built from the seed."
+
+    columns:
+      - name: id
+        description: "Unique identifier."
+        tests:
+          - not_null
+
+      - name: item_id
+        description: "Item identifier."
+        tests:
+          - not_null
+
+      - name: event_date
+        description: "Event date."
+        tests:
+          - not_null
+
+    
+
+  - name: full_model
+    description: "Aggregated order counts by item."
+
+    columns:
+      - name: item_id
+        description: "Item identifier."
+        tests:
+          - not_null
+          - unique
+
+      - name: num_orders
+        description: "Number of distinct orders."
+        tests:
+          - not_null

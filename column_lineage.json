@@ -1,0 +1,26 @@
+{
+  "\"dev\".\"main\".\"full_model\"": {
+    "item_id": [
+      "\"incremental_model\".\"item_id\""
+    ],
+    "num_orders": [
+      "\"incremental_model\".\"id\""
+    ]
+  },
+  "\"dev\".\"main\".\"incremental_model\"": {
+    "id": [
+      "\"seed_data\".\"id\""
+    ],
+    "item_id": [
+      "\"seed_data\".\"item_id\""
+    ],
+    "event_date": [
+      "\"seed_data\".\"event_date\""
+    ]
+  },
+  "\"dev\".\"main\".\"seed_data\"": {
+    "id": [],
+    "item_id": [],
+    "event_date": []
+  }
+}
