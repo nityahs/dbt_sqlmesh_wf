@@ -3,12 +3,19 @@
     unique_key=['id', 'event_date']
 ) }}
 
-SELECT
+{% if is_incremental() %}
+with max_date as (
+    select coalesce(max(event_date), '2020-01-01'::date) as max_event_date
+    from {{ this }}
+)
+{% endif %}
+
+select
     id,
     item_id,
     event_date
-FROM {{ ref('seed_data') }}
-
+from {{ ref('seed_data') }}
 {% if is_incremental() %}
-where event_date >= (select coalesce(max(event_date), '2020-01-01') from seed_data)
+cross join max_date
+where event_date >= max_event_date
 {% endif %}
