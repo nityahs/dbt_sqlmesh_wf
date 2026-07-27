@@ -10,8 +10,5 @@ SELECT
 FROM {{ ref('seed_data') }}
 
 {% if is_incremental() %}
-WHERE event_date >= (
-    SELECT COALESCE(MAX(event_date), '2020-01-01')
-    FROM {{ this }}
-)
+where event_date >= (select coalesce(max(event_date), '2020-01-01') from seed_data)
 {% endif %}
