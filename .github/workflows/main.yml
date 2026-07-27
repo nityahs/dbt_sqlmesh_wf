@@ -28,7 +28,7 @@ jobs:
       - name: Install SQLMesh
         run: |
           pip install --upgrade pip
-          pip install "sqlmesh[dbt,duckdb]"
+          pip install "sqlmesh[dbt,duckdb]" dbt-duckdb
 
       # NOTE: `sqlmesh init dbt` reads your EXISTING dbt_project.yml/models
       # and generates a sqlmesh.yaml + config.py pointing at them — it does
