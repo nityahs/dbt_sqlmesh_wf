@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-import os
+
 from sqlmesh.core.context import Context
 from sqlmesh.core.lineage import lineage
 
@@ -8,8 +8,7 @@ project_dir = Path(__file__).resolve().parent
 context = Context(paths=str(project_dir))
 
 column_lineage = {}
-dir = os.environ.get("DBT_PROFILES_DIR", profiles_dir or "")
-path = Path(project_root, dir, cls.PROFILE_FILE)
+
 for name, model in context.models.items():
     model_cols = {}
     for column in model.columns_to_types or {}:
