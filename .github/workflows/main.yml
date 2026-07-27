@@ -41,6 +41,16 @@ jobs:
       - name: sqlmesh init (dbt project)
         run: sqlmesh init -t dbt
 
+      - name: Debug - verify profiles.yml location
+        run: |
+          echo "DBT_PROFILES_DIR is: $DBT_PROFILES_DIR"
+          echo "--- repo root contents ---"
+          ls -la
+          echo "--- profiles dir contents ---"
+          ls -la profiles || echo "profiles/ directory does not exist"
+          echo "--- looking for dbt_project.yml ---"
+          find . -name "dbt_project.yml" -not -path "*/node_modules/*"
+
       # plan.py should apply the SQLMesh plan (Context.plan(auto_apply=True))
       # BEFORE `sqlmesh run`, since `run` executes against an environment
       # that a plan must have already created. Confirm plan.py does this,
