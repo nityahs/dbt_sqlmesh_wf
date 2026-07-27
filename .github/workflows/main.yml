@@ -54,6 +54,11 @@ jobs:
       # or reorder these two steps to match what plan.py actually does.
       - name: Run plan.py
         run: python plan.py
+      - name: Upload column lineage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: column-lineage
+          path: column_lineage.json
 
       - name: sqlmesh run
         run: sqlmesh run
