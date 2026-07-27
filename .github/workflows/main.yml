@@ -1,4 +1,4 @@
-name: dbt CI
+name: SQLMesh CI
 
 on:
   pull_request:
@@ -6,11 +6,8 @@ on:
   push:
     branches: [main]
 
-env:
-  DBT_PROFILES_DIR: ./profiles
-
 jobs:
-  dbt:
+  sqlmesh:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,36 +25,25 @@ jobs:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
 
-      - name: Install dbt
+      - name: Install SQLMesh
         run: |
           pip install --upgrade pip
-          pip install dbt-duckdb
+          pip install "sqlmesh[dbt,duckdb]"
 
-      - name: Create profiles.yml
-        run: |
-          mkdir -p profiles
-          cat > profiles/profiles.yml << EOF
-          POC_DBTCore:
-            target: dev
-            outputs:
-              dev:
-                type: duckdb
-                path: dev.duckdb
-                schema: main
-                threads: 1
-          EOF
+      # NOTE: `sqlmesh init dbt` reads your EXISTING dbt_project.yml/models
+      # and generates a sqlmesh.yaml + config.py pointing at them — it does
+      # not touch your dbt SQL. This is typically a ONE-TIME step you run
+      # locally and commit (sqlmesh.yaml, config.py) rather than re-run on
+      # every CI job. If those files are already committed, delete this step.
+      - name: sqlmesh init (dbt project)
+        run: sqlmesh init -t dbt
 
-      - name: Install dbt packages
-        run: dbt deps
+      # plan.py should apply the SQLMesh plan (Context.plan(auto_apply=True))
+      # BEFORE `sqlmesh run`, since `run` executes against an environment
+      # that a plan must have already created. Confirm plan.py does this,
+      # or reorder these two steps to match what plan.py actually does.
+      - name: Run plan.py
+        run: python plan.py
 
-      - name: dbt debug (verify connection)
-        run: dbt debug
-
-      - name: dbt compile
-        run: dbt compile
-
-      - name: dbt run
-        run: dbt run
-
-      - name: dbt test
-        run: dbt test
+      - name: sqlmesh run
+        run: sqlmesh run
