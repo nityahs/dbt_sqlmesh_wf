@@ -1,0 +1,63 @@
+name: dbt CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+env:
+  DBT_PROFILES_DIR: ./profiles
+
+jobs:
+  dbt:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+
+      - name: Install dbt
+        run: |
+          pip install --upgrade pip
+          pip install dbt-duckdb
+
+      - name: Create profiles.yml
+        run: |
+          mkdir -p profiles
+          cat > profiles/profiles.yml << EOF
+          POC_DBTCore:
+            target: dev
+            outputs:
+              dev:
+                type: duckdb
+                path: dev.duckdb
+                schema: main
+                threads: 1
+          EOF
+
+      - name: Install dbt packages
+        run: dbt deps
+
+      - name: dbt debug (verify connection)
+        run: dbt debug
+
+      - name: dbt compile
+        run: dbt compile
+
+      - name: dbt run
+        run: dbt run
+
+      - name: dbt test
+        run: dbt test
