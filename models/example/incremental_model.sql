@@ -4,7 +4,7 @@
 ) }}
 
 SELECT
-    id::INTEGER,
+    id,
     item_id,
     event_date
 FROM {{ ref('seed_data') }}
