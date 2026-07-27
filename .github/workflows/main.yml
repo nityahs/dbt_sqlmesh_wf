@@ -61,4 +61,4 @@ jobs:
           path: column_lineage.json
 
       - name: sqlmesh plan
-        run: sqlmesh plan
+        run: sqlmesh plan --auto-apply
