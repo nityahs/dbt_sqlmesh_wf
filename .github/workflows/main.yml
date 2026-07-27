@@ -6,9 +6,6 @@ on:
   push:
     branches: [main]
 
-env:
-  DBT_PROFILES_DIR: ${{ github.workspace }}/profiles
-
 jobs:
   sqlmesh:
     runs-on: ubuntu-latest
