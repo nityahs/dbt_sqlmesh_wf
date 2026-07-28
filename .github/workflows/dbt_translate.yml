@@ -43,15 +43,15 @@ jobs:
       - name: Display structure of downloaded files
         run: ls -R "${{ github.workspace }}/target/compiled"
       - name: translate run
-        run: python translate.py "${{ github.workspace }}/target/compiled"
+        run: python translate.py "${{ github.workspace }}/target/compiled/dbt-compiled/poc_dbtcore/models/example"
       - name: Upload Translated SQL
         uses: actions/upload-artifact@v4
         with:
           name: dbt-compiled
           path: spark-update
-      - name: Unzip and Update Repository Content
-        uses: moehami/unzip-and-update-action@Unzip
-        with:
-          zip_file_path: "${{ github.workspace }}/target/compiled"
+      # - name: Unzip and Update Repository Content
+      #   uses: moehami/unzip-and-update-action@Unzip
+      #   with:
+      #     zip_file_path: "${{ github.workspace }}/target/compiled"
 
         
