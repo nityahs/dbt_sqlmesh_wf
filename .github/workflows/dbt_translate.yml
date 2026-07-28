@@ -40,6 +40,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: target/compiled
+      - name: Unzip and Update Repository Content
+        uses: moehami/unzip-and-update-action@Unzip
+        with:
+          zip_file_path: target/compiled
       - name: translate run
         run: python translate.py target/compiled
       - name: Upload Translated SQL
