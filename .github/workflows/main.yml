@@ -62,5 +62,10 @@ jobs:
 
       - name: sqlmesh plan
         run: sqlmesh plan --auto-apply
-      - name: sqlmesh display
-        run: sqlmesh fetchdf("select * from full_model")
+      - name: Query SQLMesh model
+        shell: python
+        run: |
+          from sqlmesh import Context
+          context = Context(paths=".")
+          df = context.fetchdf("select * from full_model")
+          print(df)
