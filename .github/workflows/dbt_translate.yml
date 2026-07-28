@@ -36,6 +36,10 @@ jobs:
         with:
           name: dbt-compiled
           path: target/compiled
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v3.1.0
+        with:
+          path: target/compiled
       - name: translate run
         run: python translate.py
       - name: Upload Translated SQL
