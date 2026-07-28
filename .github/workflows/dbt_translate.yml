@@ -43,7 +43,7 @@ jobs:
       - name: Unzip and Update Repository Content
         uses: moehami/unzip-and-update-action@Unzip
         with:
-          zip_file_path: target/compiled
+          zip_file_path: /home/runner/work/dbt_sqlmesh_wf/dbt_sqlmesh_wf/target/compiled/dbt-compiled
       - name: translate run
         run: python translate.py target/compiled
       - name: Upload Translated SQL
