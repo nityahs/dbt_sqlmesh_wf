@@ -41,7 +41,7 @@ jobs:
         with:
           path: target/compiled
       - name: translate run
-        run: python translate.py
+        run: python translate.py target/compiled
       - name: Upload Translated SQL
         uses: actions/upload-artifact@v4
         with:
