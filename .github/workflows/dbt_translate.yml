@@ -40,6 +40,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: target/compiled
+      - name: Display structure of downloaded files
+        run: ls -R path/to/artifacts
       - name: translate run
         run: python translate.py "${{ github.workspace }}/target/compiled"
       - name: Upload Translated SQL
