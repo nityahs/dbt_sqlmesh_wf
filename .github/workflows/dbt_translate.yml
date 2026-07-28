@@ -37,7 +37,7 @@ jobs:
           name: dbt-compiled
           path: target/compiled
       - name: Download a Build Artifact
-        uses: actions/download-artifact@v3.1.0
+        uses: actions/download-artifact@v4
         with:
           path: target/compiled
       - name: translate run
