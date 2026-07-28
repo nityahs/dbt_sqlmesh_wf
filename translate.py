@@ -75,7 +75,7 @@
 from pathlib import Path
 import sqlglot
 
-input_dir = Path("target\compiled\poc_dbtcore\models\example")
+input_dir = Path("/home/runner/work/dbt_sqlmesh_wf/dbt_sqlmesh_wf/target/compiled/dbt-compiled")
 output_dir = Path("models\example\spark")
 output_dir.mkdir(parents=True, exist_ok=True)
 
