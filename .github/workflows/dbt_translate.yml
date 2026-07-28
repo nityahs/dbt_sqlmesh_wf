@@ -1,4 +1,4 @@
-ame: SQLMesh CI
+name: dbt_translate CI
 
 on:
   pull_request:
