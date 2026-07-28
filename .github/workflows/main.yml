@@ -54,6 +54,10 @@ jobs:
       # or reorder these two steps to match what plan.py actually does.
       - name: Run plan.py
         run: python plan.py
+      - name: Upload Column Lineage artifact
+        uses: actions/upload-artifact@v4
+        with: 
+          path: column_lineage.json
       - name: Download column lineage artifact
         uses: actions/download-artifact@v4
         with:
