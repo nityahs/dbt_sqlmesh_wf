@@ -55,7 +55,7 @@ jobs:
       - name: Run plan.py
         run: python plan.py
       - name: Download column lineage artifact
-        uses: actions/download-artifact@v3.1.0
+        uses: actions/download-artifact@v4
         with:
           name: column-lineage
           path: column_lineage.json
