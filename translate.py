@@ -74,7 +74,7 @@
 
 from pathlib import Path
 import sqlglot
-
+import sys
 input_dir = Path(sys.argv[1])
 output_dir = Path("models\example\spark")
 output_dir.mkdir(parents=True, exist_ok=True)
