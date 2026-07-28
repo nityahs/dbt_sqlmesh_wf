@@ -48,7 +48,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: spark-code
-          
+          path: "${{ github.workspace }}/models/example"
       # - name: Unzip and Update Repository Content
       #   uses: moehami/unzip-and-update-action@Unzip
       #   with:
