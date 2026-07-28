@@ -63,4 +63,4 @@ jobs:
       - name: sqlmesh plan
         run: sqlmesh plan --auto-apply
       - name: sqlmesh display
-        run: sqlmesh fetchdf("select * from full_model)
+        run: sqlmesh fetchdf("select * from full_model")
